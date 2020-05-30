@@ -6,11 +6,8 @@ using System.Threading.Tasks;
 
 namespace GeometricFigures
 {
-	class Program
+	public class Builder
 	{
-		static void Main(string[] args)
-		{
-			
-		}
+
 	}
 }
