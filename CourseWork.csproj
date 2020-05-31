@@ -43,13 +43,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="src\Builder.cs" />
+    <Compile Include="src\FigureCreator.cs" />
+    <Compile Include="src\PlaneFigures.cs" />
     <Compile Include="src\Figure.cs" />
-    <Compile Include="src\FigureStructure.cs" />
+    <Compile Include="src\SideStructure.cs" />
     <Compile Include="src\MathCalculations.cs" />
     <Compile Include="src\Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="src\Vertex.cs" />
+    <Compile Include="src\VolumetricFigures.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

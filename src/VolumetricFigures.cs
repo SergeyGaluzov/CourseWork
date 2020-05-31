@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace GeometricFigures
 {
-	public class Builder
+	public class VolumetricFigure : Figure
 	{
-
+		public VolumetricFigure(int sides, int verticeNumberPerSide) : base(sides) { }
 	}
 }

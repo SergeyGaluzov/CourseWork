@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GeometricFigures
 {
-	public class SideElement
+	public abstract class SideElement
 	{
 		public List<Vertex> vertices;
 	}
