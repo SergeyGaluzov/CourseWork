@@ -33,9 +33,15 @@ namespace GeometricFigures
 
 		public double Perimeter { get { return CalculateArea(); } }
 		protected virtual double CalculatePerimeter() => sideElements.Select(elem => ((Edge)elem).Length).Sum();
+
+		public override void GetInfo()
+		{
+			Console.WriteLine(Perimeter);
+			Console.WriteLine(Area);
+		}
 	}
 
-	public class Square : PlaneFigure
+	/*public class Square : PlaneFigure
 	{
 		public Square(List<Vertex> vertices) : base(vertices)
 		{
@@ -71,5 +77,5 @@ namespace GeometricFigures
 		{
 
 		}
-	}
+	}*/
 }

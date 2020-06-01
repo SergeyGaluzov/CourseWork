@@ -8,6 +8,10 @@ namespace GeometricFigures
 {
 	public class VolumetricFigure : Figure
 	{
-		public VolumetricFigure(int sides, int verticeNumberPerSide) : base(sides) { }
+		public VolumetricFigure(int sides) : base(sides) { }
+		public override void GetInfo()
+		{
+			Console.WriteLine();
+		}
 	}
 }

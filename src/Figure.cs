@@ -14,5 +14,6 @@ namespace GeometricFigures
 		{
 			sideElements = new List<SideElement>(sides);
 		}
+		public abstract void GetInfo();
 	}
 }                                                                                                                                                                                                                                                                                                                                                                                         
