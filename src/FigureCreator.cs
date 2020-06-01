@@ -19,9 +19,12 @@ namespace GeometricFigures
 		}
 	}
 
-	/*public class VolumetricFigureCreator : FigureCreator
+	public class VolumetricFigureCreator : FigureCreator
 	{
-
-	}*/
+		public override Figure CreateFigure(List<Vertex> vertices)
+		{
+			return new VolumetricFigure(vertices);
+		}
+	}
 
 }
