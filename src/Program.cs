@@ -11,57 +11,38 @@ namespace GeometricFigures
 		static void Main(string[] args)
 		{
 			Console.Write("Enter the type of geometric figure (2D or 3D): ");
-			string figureType = Console.ReadLine().ToUpper();
+			string dimensionType = Console.ReadLine().ToUpper();
 			int side_number;
 			List<Vertex> vertices = new List<Vertex>();
+			string figureType;
 			FigureCreator creator;
 			Figure result;
-			switch (figureType)
+			switch (dimensionType)
 			{
 				case "2D":
 					Console.Write("Enter the number of sides in the figure: ");
 					side_number = Int32.Parse(Console.ReadLine());
 					vertices.Capacity = side_number;
-					for (int i = 0; i < vertices.Capacity; i++)
+					Console.Write("What type of plain figure do you want to create? (arbitrary, specific): ");
+					figureType = Console.ReadLine().ToLower();
+					if (figureType != "arbitrary")
 					{
-						Console.Write("Enter x-coordinate: ");
-						double x_coordinate = Double.Parse(Console.ReadLine());
-
-						Console.Write("Enter y-coordinate: ");
-						double y_coordinate = Double.Parse(Console.ReadLine());
-
-						vertices.Add(new Vertex(x_coordinate, y_coordinate));
+						Console.Write("What type of specific plain figure do you want to create? (square, rectangular): ");
+						figureType = Console.ReadLine().ToLower();
 					}
-					creator = new PlainFigureCreator();
-					result = creator.CreateFigure(vertices);
-					//result.GetInfo();
+					creator = new PlaneFigureCreator();
+					result = creator.CreateFigure(vertices, figureType);
 					break;
 				case "3D":
 					Console.Write("Enter the number of sides in the figure: ");
 					side_number = Int32.Parse(Console.ReadLine());
 					Console.Write("Enter the type of volumetric figure (pyramid or prism): ");
-					string type = Console.ReadLine().ToLower();
-					vertices.Capacity = 2 * side_number;
-					while (vertices.Count < vertices.Capacity)
-					{
-						Console.Write("Enter x-coordinate: ");
-						double x_coordinate = Double.Parse(Console.ReadLine());
-
-						Console.Write("Enter y-coordinate: ");
-						double y_coordinate = Double.Parse(Console.ReadLine());
-
-						vertices.Add(new Vertex(x_coordinate, y_coordinate));
-						if (vertices.Count % side_number == 0)
-						{
-							vertices.Add(vertices[vertices.Count - side_number]);
-							if (type == "pyramid") vertices.Add(vertices[vertices.Count - side_number]);
-						}
-					}
+					figureType = Console.ReadLine().ToLower();
+					vertices.Capacity = (figureType == "prism" ? 2 * side_number : side_number + 1);
 					creator = new VolumetricFigureCreator();
-					result = creator.CreateFigure(vertices);
+					result = creator.CreateFigure(vertices, figureType);
 
-					/*creator = new VolumetricFigureCreator();
-					result = creator.CreateFigure(side_number, type);*/
+
 					break;
 				default:
 

@@ -21,6 +21,10 @@ namespace GeometricFigures
 	}
 	class Side : SideElement
 	{
-		public List<Edge> edges = new List<Edge>();
+		public List<Edge> edges;
+		public Side(int edgeNumber)
+		{
+			edges = new List<Edge>(edgeNumber);
+		}
 	}
 }

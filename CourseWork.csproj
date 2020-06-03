@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="src\FigureCreator.cs" />
+    <Compile Include="src\Menu.cs" />
     <Compile Include="src\PlaneFigures.cs" />
     <Compile Include="src\Figure.cs" />
     <Compile Include="src\SideStructure.cs" />

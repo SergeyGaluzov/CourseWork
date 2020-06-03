@@ -11,7 +11,7 @@ namespace GeometricFigures
 		public double x { private set; get; }
 		public double y { private set; get; }
 		public double? z { private set; get; }
-		public string name { private set; get; }
+		//public string name { private set; get; }
 
 		public Vertex(double x, double y, double? z = null)
 		{

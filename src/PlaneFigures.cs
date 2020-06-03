@@ -31,46 +31,38 @@ namespace GeometricFigures
 			return 0.5 * Math.Abs(tempSum1 + (allVertices.Last().x * allVertices.First().y) - tempSum2 - (allVertices.First().x * allVertices.Last().y));
 		}
 
-		public double Perimeter { get { return CalculateArea(); } }
+		public double Perimeter { get { return CalculatePerimeter(); } }
 		protected virtual double CalculatePerimeter() => sideElements.Select(elem => ((Edge)elem).Length).Sum();
 
-		public override void GetInfo()
+		/*public override void GetInfo()
 		{
 			Console.WriteLine(Perimeter);
 			Console.WriteLine(Area);
-		}
-	}
-
-	/*public class Square : PlaneFigure
-	{
-		public Square(List<Vertex> vertices) : base(vertices)
-		{
-			
-		}
-		protected override double CalculateArea() => Math.Pow(((Edge)sideElements[0]).Length, 2);
-		protected override double CalculatePerimeter() => ((Edge)sideElements[0]).Length * 4;
+		}*/
 	}
 
 	public class Rectangular : PlaneFigure
 	{
 		public Rectangular(List<Vertex> vertices) : base(vertices)
 		{
-			
+
 		}
 		protected override double CalculateArea() => ((Edge)sideElements[0]).Length * ((Edge)sideElements[1]).Length;
 		protected override double CalculatePerimeter() => 2 * (((Edge)sideElements[0]).Length + ((Edge)sideElements[1]).Length);
-		
 	}
 
-	public class Triangle : PlaneFigure
+	public class Square : Rectangular
 	{
-		public Triangle(List<Vertex> vertices) : base(vertices)
+		public Square(List<Vertex> vertices) : base(vertices)
 		{
 
 		}
+		protected override double CalculateArea() => Math.Pow(((Edge)sideElements[0]).Length, 2);
+		protected override double CalculatePerimeter() => ((Edge)sideElements[0]).Length * 4;
 	}
 
-	public class Rhombus : PlaneFigure
+
+	/*public class Rhombus : PlaneFigure
 	{
 		public double height;
 		public Rhombus(List<Vertex> vertices) : base(vertices)
