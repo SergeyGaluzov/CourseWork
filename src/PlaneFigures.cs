@@ -8,7 +8,7 @@ namespace GeometricFigures
 {
 	public class PlaneFigure : Figure
 	{
-		protected List<Vertex> allVertices;
+		public List<Vertex> allVertices;
 		public PlaneFigure(List<Vertex> vertices) : base(vertices.Count)
 		{
 			allVertices = new List<Vertex>(vertices);

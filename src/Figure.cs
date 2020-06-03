@@ -13,7 +13,6 @@ namespace GeometricFigures
 		public Figure(int sides)
 		{
 			sideElements = new List<SideElement>(sides);
-			VertexNumber = sides;
 		}
 		//public abstract void GetInfo();
 	}

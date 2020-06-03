@@ -21,7 +21,6 @@ namespace GeometricFigures
 			EnterCoordinates(out x_coordinate, out y_coordinate);
 			Console.Write("Enter z-coordinate: ");
 			z_coordinate = Double.Parse(Console.ReadLine());
-
 		}
 	}
 }

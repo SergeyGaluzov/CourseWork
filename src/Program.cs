@@ -38,7 +38,7 @@ namespace GeometricFigures
 					side_number = Int32.Parse(Console.ReadLine());
 					Console.Write("Enter the type of volumetric figure (pyramid or prism): ");
 					figureType = Console.ReadLine().ToLower();
-					vertices.Capacity = (figureType == "prism" ? 2 * side_number : side_number + 1);
+					vertices.Capacity = (figureType == "prism" ? 3 * side_number : 4 * side_number);
 					creator = new VolumetricFigureCreator();
 					result = creator.CreateFigure(vertices, figureType);
 
