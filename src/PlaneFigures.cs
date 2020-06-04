@@ -34,11 +34,15 @@ namespace GeometricFigures
 		public double Perimeter { get { return CalculatePerimeter(); } }
 		protected virtual double CalculatePerimeter() => sideElements.Select(elem => ((Edge)elem).Length).Sum();
 
-		/*public override void GetInfo()
+		public override int VertexNumber => sideElements.Count;
+		public override int SideNumber => sideElements.Count;
+		public override void GetInfo()
 		{
-			Console.WriteLine(Perimeter);
-			Console.WriteLine(Area);
-		}*/
+			Console.WriteLine($"Number of vertices: {VertexNumber}");
+			Console.WriteLine($"Number of sides: {SideNumber}");
+			Console.WriteLine($"Perimeter: {Perimeter}");
+			Console.WriteLine($"Area: {Area}");
+		}
 	}
 
 	public class Rectangular : PlaneFigure
@@ -61,13 +65,4 @@ namespace GeometricFigures
 		protected override double CalculatePerimeter() => ((Edge)sideElements[0]).Length * 4;
 	}
 
-
-	/*public class Rhombus : PlaneFigure
-	{
-		public double height;
-		public Rhombus(List<Vertex> vertices) : base(vertices)
-		{
-
-		}
-	}*/
 }

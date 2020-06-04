@@ -12,6 +12,7 @@ namespace GeometricFigures
 		public abstract double wholeSurfaceArea { get; }
 		public PlaneFigure bottomBase;
 		public abstract double Volume { get; }
+		public abstract int EdgeNumber { get; }
 		public VolumetricFigure(List<Vertex> vertices, int vertexNumberPerSide) : base(vertices.Count / vertexNumberPerSide) 
 		{
 			List<Vertex> basisVertices = new List<Vertex>();
@@ -21,7 +22,7 @@ namespace GeometricFigures
 				for (int j = i; j < i + vertexNumberPerSide; j++)
 				{
 					side.edges.Add(new Edge(vertices[j], vertices[(j + 1) % (i + vertexNumberPerSide)]));
-					if (j == i || j == i + vertexNumberPerSide - 1)
+					if (j == i) //if (j == i || j == i + vertexNumberPerSide - 1)
 					{
 						basisVertices.Add(vertices[j]);
 					}
@@ -34,10 +35,15 @@ namespace GeometricFigures
 
 	public class Pyramid : VolumetricFigure
 	{
-		private Vertex upperVertice; 
+		private Vertex upperVertice;
+		public override int VertexNumber => sideElements.Count + 1;
+		public override int SideNumber => sideElements.Count + 1;
+		public override int EdgeNumber => sideElements.Count * 2;
+
 		public Pyramid(List<Vertex> vertices, int vertexNumberPerSide) : base(vertices, vertexNumberPerSide)
 		{
-			upperVertice = vertices.GroupBy(vertice => vertice).OrderBy(group => group.Count()).Max().Key;
+			//upperVertice = vertices.GroupBy(vertice => vertice).OrderBy(group => group.Count()).Max().Key;
+			upperVertice = vertices[1];
 		}
 		public double CalculateHeight(Vertex t, (double A, double B, double C, double D) coordinates)
 		{
@@ -57,20 +63,33 @@ namespace GeometricFigures
 		public override double wholeSurfaceArea => bottomBase.Area + MathCalculations.CalculateArea(
 																		sideElements.Select(side => ((Side)side).edges.Select(edge => edge.vertices).SelectMany(x => x).ToList())
 																		.SelectMany(y => y).ToList().Distinct().ToList());
-																				 
+		public override void GetInfo()
+		{
+			Console.WriteLine($"Number of vertices: {VertexNumber}");
+			Console.WriteLine($"Number of sides: {SideNumber}");
+			Console.WriteLine($"Number of edges: {EdgeNumber}");
+			Console.WriteLine($"Height: {Height}");
+			Console.WriteLine($"Total surface area: {wholeSurfaceArea}");
+			Console.WriteLine($"Volume: {Volume}");
+		}
 	}
 
 	public class Prism : VolumetricFigure
 	{
 		public PlaneFigure upperBase;
+		public override int VertexNumber => sideElements.Count * 2;
+		public override int SideNumber => sideElements.Count + 2;
+		public override int EdgeNumber => sideElements.Count * 3;
 		public Prism(List<Vertex> vertices, int vertexNumberPerSide) : base(vertices, vertexNumberPerSide) 
 		{
-			upperBase = new PlaneFigure(vertices.Except(bottomBase.allVertices.Distinct()).ToList());
+			upperBase = new PlaneFigure(vertices.GroupBy(vertice => new { vertice.x, vertice.y, vertice.z })
+												.Select(group => group.First()).ToList().Except(bottomBase.allVertices.Distinct()).ToList());
 		}
 		public override double Height
 		{
 			get
 			{
+
 				var surface1 = MathCalculations.SurfaceCoeficients(upperBase.allVertices[0], upperBase.allVertices[1], upperBase.allVertices[2]);
 				var surface2 = MathCalculations.SurfaceCoeficients(bottomBase.allVertices[0], bottomBase.allVertices[1], bottomBase.allVertices[2]);
 				return Math.Abs(surface2.D - surface1.D) / Math.Sqrt(surface1.A * surface1.A + surface1.B * surface1.B + surface1.B * surface1.B);
@@ -80,13 +99,20 @@ namespace GeometricFigures
 		public override double wholeSurfaceArea => bottomBase.Area + upperBase.Area + MathCalculations.CalculateArea(
 																		sideElements.Select(side => ((Side)side).edges.Select(edge => edge.vertices).SelectMany(x => x).ToList())
 																		.SelectMany(y => y).ToList().Distinct().ToList());
-
+		public override void GetInfo()
+		{
+			Console.WriteLine($"Number of vertices: {VertexNumber}");
+			Console.WriteLine($"Number of sides: {SideNumber}");
+			Console.WriteLine($"Number of edges: {EdgeNumber}");
+			Console.WriteLine($"Height: {Height}");
+			Console.WriteLine($"Total surface area: {wholeSurfaceArea}");
+			Console.WriteLine($"Volume: {Volume}");
+		}
 	}
 
 	public class Parallelepiped : Prism
 	{
 		public Parallelepiped(List<Vertex> vertices, int vertexNumberPerSide) : base(vertices, vertexNumberPerSide) { }
-
 	}
 
 	public class Cube : Parallelepiped

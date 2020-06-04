@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="src\Exceptions.cs" />
     <Compile Include="src\FigureCreator.cs" />
     <Compile Include="src\Menu.cs" />
     <Compile Include="src\PlaneFigures.cs" />

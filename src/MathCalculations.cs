@@ -23,7 +23,7 @@ namespace GeometricFigures
 		{
 			double A_coef = (double)(t1.y * (t2.z - t3.z) + t2.y * (t3.z - t1.z) + t3.y * (t1.z - t2.z));
 			double B_coef = (double)(t1.z * (t2.x - t3.x) + t2.z * (t3.x - t1.x) + t3.z * (t1.x - t2.x));
-			double C_coef = t1.x * (t2.y - t3.y) + t2.x * (t3.y - t1.y) + t2.x * (t1.y - t2.y);
+			double C_coef = t1.x * (t2.y - t3.y) + t2.x * (t3.y - t1.y) + t3.x * (t1.y - t2.y);
 			double D_coef = -(double)(t1.x * (t2.y * t3.z - t3.y * t2.z) + t2.x * (t3.y * t1.z - t1.y * t3.z) + t3.x * (t1.y * t2.z - t2.y * t1.z));
 			return (A: A_coef, B: B_coef, C: C_coef, D: D_coef);
 		}

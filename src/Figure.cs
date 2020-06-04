@@ -8,12 +8,13 @@ namespace GeometricFigures
 {
 	public abstract class Figure
 	{
-		public int VertexNumber { private set; get; }
+		public abstract int VertexNumber { get; }
 		public List<SideElement> sideElements;
 		public Figure(int sides)
 		{
 			sideElements = new List<SideElement>(sides);
 		}
-		//public abstract void GetInfo();
+		public abstract int SideNumber { get; }
+		public abstract void GetInfo();
 	}
 }                                                                                                                                                                                                                                                                                                                                                                                         

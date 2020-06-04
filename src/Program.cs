@@ -17,36 +17,85 @@ namespace GeometricFigures
 			string figureType;
 			FigureCreator creator;
 			Figure result;
-			switch (dimensionType)
+			bool quitFlag = true;
+			while (quitFlag)
 			{
-				case "2D":
-					Console.Write("Enter the number of sides in the figure: ");
-					side_number = Int32.Parse(Console.ReadLine());
-					vertices.Capacity = side_number;
-					Console.Write("What type of plain figure do you want to create? (arbitrary, specific): ");
-					figureType = Console.ReadLine().ToLower();
-					if (figureType != "arbitrary")
+				try
+				{
+					switch (dimensionType)
 					{
-						Console.Write("What type of specific plain figure do you want to create? (square, rectangular): ");
-						figureType = Console.ReadLine().ToLower();
+						case "2D":
+							Console.Write("What type of plain figure do you want to create? (arbitrary, specific): ");
+							figureType = Console.ReadLine().ToLower();
+							switch (figureType)
+							{
+								case "specific":
+									{
+										side_number = 4;
+										Console.Write("What type of specific plain figure do you want to create? (square, rectangular): ");
+										figureType = Console.ReadLine().ToLower();
+										if (figureType != "square" && figureType != "rectangular")
+										{
+											throw new IncorrectFigureType("Incorrect figure type! Try again");
+										}
+										break;
+									}
+								case "arbitrary":
+									{
+										Console.Write("Enter the number of sides in the figure: ");
+										side_number = Int32.Parse(Console.ReadLine());
+										if (side_number <= 2) throw new IncorrectSideNumber("Incorrect side number! Try again");
+										break;
+									}
+								default:
+									throw new IncorrectFigureType("Incorrect figure type! Try again");
+							}
+							creator = new PlaneFigureCreator();
+							result = creator.CreateFigure(vertices, figureType, side_number);
+							Console.WriteLine();
+							result.GetInfo();
+							break;
+						case "3D":
+							Console.Write("Enter the type of volumetric figure (pyramid, prism, parallelepiped, cube): ");
+							figureType = Console.ReadLine().ToLower();
+							if (figureType != "pyramid" && figureType != "prism" && figureType != "parallelepiped" && figureType != "cube")
+							{
+								throw new IncorrectFigureType("Incorrect figure type! Try again");
+							}
+							if (figureType == "pyramid" || figureType == "prism")
+							{
+								Console.Write("Enter the number of sides in the figure: ");
+								side_number = Int32.Parse(Console.ReadLine());
+								if (side_number <= 2) throw new IncorrectSideNumber("Incorrect side number! Try again");
+								break;
+							}
+							else side_number = 4;
+							creator = new VolumetricFigureCreator();
+							result = creator.CreateFigure(vertices, figureType, side_number);
+							Console.WriteLine();
+							result.GetInfo();
+							break;
+						default:
+							throw new IncorrectCommonFigureType("Incorrect common figure type! Try again");
 					}
-					creator = new PlaneFigureCreator();
-					result = creator.CreateFigure(vertices, figureType);
-					break;
-				case "3D":
-					Console.Write("Enter the number of sides in the figure: ");
-					side_number = Int32.Parse(Console.ReadLine());
-					Console.Write("Enter the type of volumetric figure (pyramid or prism): ");
-					figureType = Console.ReadLine().ToLower();
-					vertices.Capacity = (figureType == "prism" ? 3 * side_number : 4 * side_number);
-					creator = new VolumetricFigureCreator();
-					result = creator.CreateFigure(vertices, figureType);
-
-
-					break;
-				default:
-
-					break;
+				}
+				catch (IncorrectCommonFigureType ex)
+				{
+					Console.WriteLine(ex.Message);
+				}
+				catch (IncorrectFigureType ex)
+				{
+					Console.WriteLine(ex.Message);
+				}
+				catch (IncorrectSideNumber ex)
+				{
+					Console.WriteLine(ex.Message);
+				}
+				finally
+				{
+					Console.Write("\nEnter \"q\" if you want to finish or something else to continue: ");
+					quitFlag = (Console.ReadLine().ToLower() != "q");
+				}
 			}
 		}
 	}

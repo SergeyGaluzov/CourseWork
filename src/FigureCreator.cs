@@ -8,7 +8,7 @@ namespace GeometricFigures
 {
 	public abstract class FigureCreator
 	{
-		public abstract Figure CreateFigure(List<Vertex> vertices, string type);
+		public abstract Figure CreateFigure(List<Vertex> vertices, string type, int side_number);
 	}
 
 	public class PlaneFigureCreator : FigureCreator
@@ -25,11 +25,11 @@ namespace GeometricFigures
 
 			return vertices;
 		}
-		public override Figure CreateFigure(List<Vertex> vertices, string type)
+		public override Figure CreateFigure(List<Vertex> vertices, string type, int side_number)
 		{
 			if (type == "arbitrary")
 			{
-				for (int i = 0; i < vertices.Capacity; i++)
+				for (int i = 0; i < side_number; i++)
 				{
 					Menu.EnterCoordinates(out double x_coordinate, out double y_coordinate);
 					vertices.Add(new Vertex(x_coordinate, y_coordinate));
@@ -46,7 +46,7 @@ namespace GeometricFigures
 							double sideA_length = Double.Parse(Console.ReadLine());
 							Console.Write("Enter the second side length of rectangular: ");
 							double sideB_length = Double.Parse(Console.ReadLine());
-							Console.Write("Enter the coordinates of start vertex below");
+							Console.WriteLine("Enter the coordinates of start vertex below");
 							Menu.EnterCoordinates(out double x_coordinate, out double y_coordinate);
 
 							return new Rectangular(AddVertices(sideA_length, sideB_length, new Vertex(x_coordinate, y_coordinate), vertices));
@@ -55,7 +55,7 @@ namespace GeometricFigures
 						{
 							Console.Write("Enter the side length of square: ");
 							double side_length = Double.Parse(Console.ReadLine());
-							Console.Write("Enter the coordinates of start vertex below");
+							Console.WriteLine("Enter the coordinates of start vertex below");
 							Menu.EnterCoordinates(out double x_coordinate, out double y_coordinate);
 
 							return new Square(AddVertices(side_length, side_length, new Vertex(x_coordinate, y_coordinate), vertices));
@@ -98,21 +98,25 @@ namespace GeometricFigures
 
 			return vertices;
 		}
-		public override Figure CreateFigure(List<Vertex> vertices, string type)
+		public override Figure CreateFigure(List<Vertex> vertices, string type, int side_number)
 		{
 			int vertexNumberPerSide = (type == "pyramid" ? 3 : 4);
 			if (type == "pyramid")
 			{
-				while (vertices.Count < vertices.Capacity)
+				while (vertices.Count < vertexNumberPerSide * side_number)
 				{
 					Menu.EnterCoordinates(out double x_coordinate, out double y_coordinate, out double z_coordinate);
 
 					vertices.Add(new Vertex(x_coordinate, y_coordinate, z_coordinate));
 
-					if (vertices.Count % vertexNumberPerSide == 0)
+					if ((vertices.Count % vertexNumberPerSide == 0) && (vertices.Count < vertexNumberPerSide * side_number))
 					{
 						vertices.Add(vertices[vertices.Count - 1]);
 						vertices.Add(vertices[vertices.Count - 3]);
+					}
+					if (vertices.Count == vertexNumberPerSide * side_number - 1)
+					{
+						vertices.Add(vertices[0]);
 					}
 				}
 				return new Pyramid(vertices, vertexNumberPerSide);
@@ -121,13 +125,13 @@ namespace GeometricFigures
 			{
 				if (type == "prizm")
 				{
-					while (vertices.Count < vertices.Capacity)
+					while (vertices.Count < vertexNumberPerSide * side_number)
 					{
 						Menu.EnterCoordinates(out double x_coordinate, out double y_coordinate, out double z_coordinate);
 
 						vertices.Add(new Vertex(x_coordinate, y_coordinate, z_coordinate));
 
-						if (vertices.Count % vertexNumberPerSide == 0)
+						if ((vertices.Count % vertexNumberPerSide == 0) && (vertices.Count < vertexNumberPerSide * side_number))
 						{
 							vertices.Add(vertices[vertices.Count - 1]);
 							vertices.Add(vertices[vertices.Count - 3]);
